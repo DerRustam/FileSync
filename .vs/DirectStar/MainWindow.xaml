@@ -1,0 +1,534 @@
+﻿<Window x:Class="DirectStar.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:DirectStar.ViewModel"
+        xmlns:local="clr-namespace:DirectStar.Model"
+        mc:Ignorable="d"
+        Closed="main_window_Closed"
+        DataContext="{x:Static converters:MainVM.GetInstance}"
+        Title="DirectStar" Name="main_window" MinHeight="610" MinWidth="800" Height="610" Width="800" Loaded="main_window_Loaded">
+    <Window.Resources>
+        <Style x:Key="panelMenuStyle" TargetType="MenuItem">
+            <Setter Property="Background" Value="Azure"/>
+            <Setter Property="Height" Value="21"/>
+            <Setter Property="Margin" Value="2,2,5,0"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+        <Style BasedOn="{StaticResource {x:Type MenuItem}}"
+               TargetType="MenuItem"
+               x:Key="contextMenuItemStyle">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="Auto"/>
+        </Style>
+        <Style x:Key="menuItemHeaderTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="0,0,-1,2"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="tabHeaderTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="2,2,0,1"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="pathTextboxStyle" TargetType="TextBox">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Height" Value="19"/>
+            <Setter Property="MinWidth" Value="200"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Margin" Value="5,3,3,5"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+        </Style>
+        <Style x:Key="filterTextboxStyle" TargetType="TextBox">
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="Width" Value="70" />
+        </Style>
+        <Style x:Key="changeDirButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="AntiqueWhite"/>
+            <Setter Property="MinWidth" Value="80"/>
+            <Setter Property="Height" Value="19"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Margin" Value="10,5,5,0"/>
+        </Style>
+        <Style x:Key="filterDirContentButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="AliceBlue"/>
+            <Setter Property="BorderBrush" Value="Tan"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Width" Value="35"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="4,0,0,-10"/>
+            <Setter Property="Clip">
+                <Setter.Value>
+                    <GeometryGroup>
+                        <RectangleGeometry Rect="0,0,35,30"/>
+                        <PathGeometry>
+                            <PathGeometry.Figures>
+                                <PathFigure StartPoint="0,5">
+                                    <LineSegment Point="7,0"/>
+                                    <LineSegment Point="0,0"/>
+                                </PathFigure>
+                            </PathGeometry.Figures>
+                        </PathGeometry>
+                    </GeometryGroup>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="deviceLabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="MaxWidth" Value="180"/>
+        </Style>
+        <Style x:Key="deviceListViewStyle" TargetType="ListView">
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <ContextMenu x:Key="items1_cm">
+            <MenuItem Click="cm1_item1_Click"/>
+        </ContextMenu>
+        <ContextMenu x:Key="items2_cm">
+            <MenuItem Click="cm2_item1_Click"/>
+            <MenuItem Click="cm2_item2_Click"/>
+        </ContextMenu>
+        <ContextMenu x:Key="items3_cm">
+            <MenuItem Click="cm3_item1_Click"/>
+            <MenuItem Click="cm3_item2_Click"/>
+            <MenuItem Click="cm3_item3_Click"/>
+        </ContextMenu>
+        <BitmapImage x:Key="img_Win" UriSource="pack://application:,,,/Resources/Windows.png"/>
+        <BitmapImage x:Key="img_Transm" UriSource="pack://application:,,,/Resources/Transmit.png"/>
+        <BitmapImage x:Key="img_From" UriSource="pack://application:,,,/Resources/From.png"/>
+        <BitmapImage x:Key="img_Users" UriSource="pack://application:,,,/Resources/Users.png"/>
+        <BitmapImage x:Key="img_Dir" UriSource="pack://application:,,,/Resources/Directory.png"/>
+        <BitmapImage x:Key="img_BackDir" UriSource="pack://application:,,,/Resources/DirectoryBack.png"/>
+        <BitmapImage x:Key="img_Picture" UriSource="pack://application:,,,/Resources/Image.png"/>
+        <BitmapImage x:Key="img_Music" UriSource="pack://application:,,,/Resources/Music.png"/>
+        <BitmapImage x:Key="img_Video" UriSource="pack://application:,,,/Resources/Video.png"/>
+        <BitmapImage x:Key="img_TransferTask" UriSource="pack://application:,,,/Resources/TransferTask.png"/>
+    </Window.Resources>
+    <Grid Background="LightGray">
+        <StackPanel x:Name="menu_panel" Height="25" VerticalAlignment="Top">
+            <Menu FontSize="16" Background="Gray">
+                <MenuItem Style="{StaticResource panelMenuStyle}">
+                    <MenuItem.Header>
+                        <TextBlock Style="{StaticResource menuItemHeaderTextStyle}">Файл</TextBlock>
+                    </MenuItem.Header>
+                    <MenuItem Style="{StaticResource contextMenuItemStyle}">
+                        <MenuItem.Header>
+                            <TextBlock Style="{StaticResource menuItemHeaderTextStyle}">Выход</TextBlock>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Style="{StaticResource panelMenuStyle}" Click="Network_Menu_Item_Click">
+                    <MenuItem.Header>
+                        <TextBlock Style="{StaticResource menuItemHeaderTextStyle}">Лок. сеть</TextBlock>
+                    </MenuItem.Header>
+                </MenuItem>
+            </Menu>
+        </StackPanel>
+        <Grid x:Name="workspace_panel"
+                    Margin="0,25,0,25"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"
+                    Width="{Binding ElementName=menu_panel, Path=ActualWidth}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Width="0" x:Name="UsersList_g">
+                <TreeView>
+                    <TextBox>Devices</TextBox>
+                    <TreeViewItem Header="Избранные" >
+                        <ListView Style="{StaticResource deviceListViewStyle}" ItemsSource="{Binding Favorites}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Tag="0" MouseRightButtonUp="device_Click"  Style="{StaticResource deviceLabelStyle}" Content="{Binding}"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Доверенные">
+                        <ListView Style="{StaticResource deviceListViewStyle}" ItemsSource="{Binding Linked}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Tag="1" MouseRightButtonUp="device_Click" Style="{StaticResource deviceLabelStyle}" Content="{Binding}"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Принятые запросы">
+                        <ListView Style="{StaticResource deviceListViewStyle}" ItemsSource="{Binding LinkRequests}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Tag="2" MouseRightButtonUp="device_Click" Style="{StaticResource deviceLabelStyle}" Content="{Binding}"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Неизвестные">
+                        <ListView Style="{StaticResource deviceListViewStyle}" ItemsSource="{Binding Devices}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Tag="3" MouseRightButtonUp="device_Click" Style="{StaticResource deviceLabelStyle}" Content="{Binding}"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </TreeViewItem>
+                </TreeView>
+            </Grid>
+            <Button Grid.Column="1" x:Name="userlist_b" ToolTipService.ToolTip="List of Users/Devices"
+                    Click="userlist_b_Click"
+                    Tag="0"
+                    VerticalAlignment="Top" 
+                    Width="25"
+                    Height="150" Margin="1,75,1,0">
+                <Button.Content>
+                    <Image Source="{StaticResource img_Users}"/>
+                </Button.Content>
+            </Button>
+            <TabControl  x:Name="file_Tab" HorizontalAlignment="Stretch" 
+                        Grid.Column="2"
+                        Height="{Binding ElementName=main_window, Path=ActualHeight, Converter={converters:User_B_Converter}, ConverterParameter='-81'}">
+                <TabItem x:Name="received_item"
+                         HorizontalContentAlignment="Stretch"
+                         ToolTipService.ToolTip="Directrory for received files"
+                         >
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal" Height="30">
+                            <Image Source="{StaticResource img_From}"/>
+                            <TextBlock Style="{StaticResource tabHeaderTextStyle}" FontSize="14">Принятые</TextBlock>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <TabItem.Content>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" BorderBrush="AntiqueWhite" BorderThickness="2">
+                                <Grid x:Name="recv_path_panel">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Content="Директория записи:" VerticalAlignment="Top" Height="25"/>
+                                    <TextBox Grid.Column="1" Margin="6,6,0,6" x:Name="rec_path" Style="{StaticResource pathTextboxStyle}" Text="{Binding RecvPath}"/>
+                                    <Button Grid.Column="2"
+                                            x:Name="recv_ch_dir_b"
+                                            Click="recv_ch_dir_b_Click"
+                                            ToolTipService.ToolTip="Change directory for downloads"
+                                            Style="{StaticResource changeDirButtonStyle}">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{StaticResource img_Dir}"/>
+                                                <TextBlock Margin="4,0,0,0">Изменить</TextBlock>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Grid.Column="3"
+                                            x:Name="recv_open_explorer_b" 
+                                            Click="recv_open_explorer_b_Click" 
+                                            ToolTipService.ToolTip="Open in Explorer"
+                                            Style="{StaticResource changeDirButtonStyle}">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{StaticResource img_Win}"/>
+                                                <TextBlock Margin="4,0,0,0">Проводник</TextBlock>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                            <Border x:Name="LogBorder" Grid.Row="1" BorderBrush="Tan" BorderThickness="2">
+                                <ScrollViewer>
+                                <ListView ItemsSource="{Binding RecvLog}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <GroupBox Width="{Binding ElementName=LogBorder, Path=ActualWidth, Converter={converters:User_B_Converter}, ConverterParameter='-30'}" FontSize="14" Header="{Binding Path=Key}">
+                                                <ListView ItemsSource="{Binding Path=Value}">
+                                                    <ListView.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <GroupBox Width="{Binding ElementName=LogBorder, Path=ActualWidth, Converter={converters:User_B_Converter}, ConverterParameter='-60'}" Header="{Binding Path=Key}">
+                                                                <ListView ItemsSource="{Binding Path=Value}">
+                                                                    <ListView.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <Label Width="{Binding ElementName=LogBorder, Path=ActualWidth, Converter={converters:User_B_Converter}, ConverterParameter='-65'}" MouseDoubleClick="Recv_File_MouseDoubleClick" FontSize="11" Content="{Binding}"/>
+                                                                        </DataTemplate>
+                                                                    </ListView.ItemTemplate>
+                                                                </ListView>
+                                                            </GroupBox>
+                                                        </DataTemplate>
+                                                    </ListView.ItemTemplate>
+                                                </ListView>
+                                            </GroupBox>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                                </ScrollViewer>
+                            </Border>
+                        </Grid>
+                    </TabItem.Content>
+                </TabItem>
+                <TabItem x:Name="transmit_item"
+                    HorizontalContentAlignment="Stretch"
+                         KeyUp="Transm_KeyUp"
+                         >
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal" Height="30">
+                            <Image Source="{StaticResource img_Transm}"/>
+                            <TextBlock Style="{StaticResource tabHeaderTextStyle}" FontSize="14">Поиск</TextBlock>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <TabItem.Content>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="100"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" BorderBrush="AntiqueWhite" BorderThickness="2">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Content="Директория поиска:" VerticalAlignment="Top" Height="25"/>
+                                    <TextBox Grid.Column="1" Margin="6" 
+                                             x:Name="transm_path" 
+                                             Style="{StaticResource pathTextboxStyle}"
+                                             Text="{Binding TransmPath}"/>
+                                    <Button Grid.Column="2" x:Name="transm_ch_dir_b" 
+                                    ToolTipService.ToolTip="Change searching directory"
+                                    Click="transm_ch_dir_b_Click"
+                                    Style="{StaticResource changeDirButtonStyle}"
+                                            Margin="4,5,6,0">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{StaticResource img_Dir}"/>
+                                                <TextBlock Margin="4,0,0,0">Выбор</TextBlock>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                            <Border x:Name="DirScrollBorder" Grid.Row="1" BorderBrush="Tan" MouseEnter="DirScrollBorder_MouseEnter" BorderThickness="2">
+                                
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Background="Azure" Name="directoryBack_b" Grid.Column="0" ToolTipService.ToolTip="Return" Click="directoryBack_b_Click">
+                                        <Button.Content>
+                                            <Image Margin="3,0,3,0" Source="{StaticResource img_BackDir}"/>
+                                        </Button.Content>
+                                    </Button>
+
+                                    <ItemsControl Grid.Column="1" ItemsSource="{Binding DirContentDirs}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.Template>
+                                            <ControlTemplate>
+                                                <ScrollViewer x:Name="dir_sv" VerticalScrollBarVisibility="Hidden"  HorizontalScrollBarVisibility="Visible" PreviewMouseWheel="HorizontalScrollViewer_PreviewMouseWheel">
+                                                    <ItemsPresenter/>
+                                                </ScrollViewer>
+                                            </ControlTemplate>
+                                        </ItemsControl.Template>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Control MouseDoubleClick="Directory_MouseDoubleClick">
+                                                    <Control.Template>
+                                                        <ControlTemplate>
+                                                            <Border>
+                                                                <Border.Style>
+                                                                    <Style>
+                                                                        <Setter Property="Border.Background" Value="White"/>
+                                                                        <Setter Property="Border.BorderBrush" Value="White"/>
+                                                                        <Setter Property="Border.BorderThickness" Value="1"/>
+                                                                        <Style.Triggers>
+                                                                            <Trigger Property="Border.IsMouseOver" Value="True">
+                                                                                <Setter Property="Border.Background" Value="AliceBlue"/>
+                                                                                <Setter Property="Border.BorderBrush" Value="DarkGray"/>
+                                                                            </Trigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </Border.Style>
+                                                                <Border.ToolTip>
+                                                                    <ToolTip Content="{Binding}"/>
+                                                                </Border.ToolTip>
+                                                                <StackPanel VerticalAlignment="Top" Width="100" 
+                                                           Height="70"
+                                                           >
+                                                                    
+                                                                    <Image Margin="0,4,0,-5" Source="{StaticResource img_Dir}" 
+                                                       Height="35" 
+                                                       Width="35"
+                                                       />
+                                                                    <Label
+                                                        Height="40"
+                                                        HorizontalAlignment="Center">
+                                                                        <Label.Content>
+                                                                            <AccessText TextAlignment="Center" TextWrapping="Wrap" Text="{Binding}"/>
+                                                                        </Label.Content>
+                                                                    </Label>
+                                                                </StackPanel>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Control.Template>
+                                                </Control>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Grid>
+                            </Border>
+                            <Border MouseEnter="DirScrollBorder_MouseEnter" MouseUp="Filter_MouseUp" Grid.Row="2" Margin="52,-2,0,10" HorizontalAlignment="Left" Width="170" BorderBrush="Tan" BorderThickness="2">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Margin="-1" MouseUp="Filter_MouseUp" Content="Фильтр папок:"/>
+                                    <TextBox x:Name="filter_dir_tb" Grid.Column="1" Style="{StaticResource filterTextboxStyle}" TextChanged="filter_content_tb_TextChanged"/>
+                                </Grid>
+                            </Border>
+                            <Border Grid.Row="3" BorderBrush="Tan" MouseEnter="Files_MouseEnter" BorderThickness="2,2,2,2">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Content="По типу:" Margin="4,10,4,0" FontSize="12"/>
+                                    <Button x:Name="img_filter_b" Click="img_filter_b_Click" Grid.Column="1" Style="{StaticResource filterDirContentButtonStyle}">
+                                        <Button.Content>
+                                            <Image Margin="2" Source="{StaticResource img_Picture}"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button x:Name="mus_filter_b" Click="mus_filter_b_Click" Grid.Column="2" Style="{StaticResource filterDirContentButtonStyle}">
+                                        <Button.Content>
+                                            <Image Margin="2" Source="{StaticResource img_Music}"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button x:Name="vid_filter_b" Click="vid_filter_b_Click" Grid.Column="3" Style="{StaticResource filterDirContentButtonStyle}">
+                                        <Button.Content>
+                                            <Image Margin="2" Source="{StaticResource img_Video}"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Border Grid.Column="5" Height="30" Margin="0,0,0,-10" MouseUp="Filter_MouseUp" BorderThickness="2" BorderBrush="Tan">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0" Margin="-1" MouseUp="Filter_MouseUp" Content="Фильтр файлов:"/>
+                                            <TextBox Grid.Column="1" x:Name="filter_files_tb" TextChanged="filter_content_tb_TextChanged" Style="{StaticResource filterTextboxStyle}"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                            <Border MouseEnter="Files_MouseEnter" Grid.Row="4" BorderThickness="2,0,2,2" BorderBrush="Tan">
+                                <ListView ItemsSource="{Binding DirContentFiles}">
+                                    <ListView.Template>
+                                        <ControlTemplate>
+                                            <ScrollViewer>
+                                                <ItemsPresenter/>
+                                            </ScrollViewer>
+                                        </ControlTemplate>
+                                    </ListView.Template>
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="TransmFile_MouseLeftButtonDown"/>
+                                            <EventSetter Event="PreviewMouseRightButtonUp" Handler="TransmFile_MouseRightButtonUp"/>
+                                            <EventSetter Event="MouseEnter" Handler="TransmFile_MouseEnter"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Grid.Column="0" Source="{Binding Converter={converters:ImageConverter}}"/>
+                                                <Label Margin="-2,0,0,0" Content="{Binding}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </Border>
+                        </Grid>
+                    </TabItem.Content>
+                </TabItem>
+            </TabControl>
+            <Button Grid.Column="3" x:Name="tasks_b" ToolTipService.ToolTip="List of Tasks"
+                    Tag="0"
+                                VerticalAlignment="Top" 
+                                Width="25"
+                    Click="tasks_b_Click"
+                                Height="150"
+                                Margin="1,75,1,0">
+                <Button.Content>
+                    <Image Source="{StaticResource img_TransferTask}"/>
+                </Button.Content>
+            </Button>
+            <Grid Grid.Column="4" x:Name="TasksLog_g"
+                  Width="0"
+                  Height="{Binding ElementName=workspace_panel, Path=ActualHeight}"
+                  >
+                <ListView ItemsSource="{Binding TransferTaskLog}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <GroupBox Header="{Binding Path=Key}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.Row="0">
+                                        
+                                    </StackPanel>
+                                <ListView Grid.Row="1" IsEnabled="False" ItemsSource="{Binding Path=Value.FilesStatusUI}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <GroupBox IsEnabled="False" Header="{Binding Path=Key}">
+                                                <ListView IsEnabled="False" ItemsSource="{Binding Path=Value}">
+                                                    <ListView.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <Label Width="130" Content="{Binding Path=FileName}"/>
+                                                                <Label Width="55" Content="{Binding Path=Status}"/>
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ListView.ItemTemplate>
+                                                </ListView>
+                                            </GroupBox>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                                </Grid>
+                            </GroupBox>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,36 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DirectStar.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="recv_path" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="transm_path" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="fw_app_name" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Direct Star</Value>
+    </Setting>
+    <Setting Name="fw_app_ports" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">8320 8350</Value>
+    </Setting>
+    <Setting Name="req_port_send" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">8320</Value>
+    </Setting>
+    <Setting Name="req_port_recv" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">8350</Value>
+    </Setting>
+    <Setting Name="app_data_folder_path" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="app_data_folder_name" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">DirectStar</Value>
+    </Setting>
+    <Setting Name="buffer_size" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">1450</Value>
+    </Setting>
+    <Setting Name="msg_size" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">512</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

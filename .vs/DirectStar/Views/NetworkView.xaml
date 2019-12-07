@@ -1,0 +1,64 @@
+﻿<Window x:Class="DirectStar.Views.NetworkView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DirectStar.Views"
+        xmlns:network="clr-namespace:System.Net.NetworkInformation;assembly=System"
+        xmlns:Properties="clr-namespace:DirectStar.ViewModel"
+        mc:Ignorable="d"
+        Title="Network Stats" IsManipulationEnabled="False" Height="350" Width="300"
+        Loaded="Window_Loaded"
+        >
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="0,0,5,0"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Width" Value="100"/>
+        </Style>
+        <Style x:Key="main_label_style" TargetType="Label">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="FontSize" Value="10"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <GroupBox Header="Interfaces" Height="200" VerticalAlignment="Top">
+            <ScrollViewer VerticalScrollBarVisibility="Visible" Height="180">
+                <ListView ItemsSource="{Binding Source={x:Static Properties:NetworkVM.GetInstance}, Path=NetworkInterfaces}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate DataType="{x:Type network:NetworkInterface}">
+                            <GroupBox Header="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Width="240">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Interface:"/>
+                                        <Label Content="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Speed:"/>
+                                        <Label Content="{Binding Path=Speed, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Converter={Properties:NetworkConverter}}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+        </GroupBox>
+        <Viewbox VerticalAlignment="Bottom" Height="100" Margin="0,0,0,10" DataContext="{x:Static Properties:NetworkVM.GetInstance}">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="LAN:" Style="{StaticResource main_label_style}"/>
+                    <Label Content="{Binding Path=LANStatus, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource main_label_style}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Internet:" Style="{StaticResource main_label_style}"/>
+                    <Label Content="{Binding Path=InetStatus, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource main_label_style}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Firewall Ports:" Style="{StaticResource main_label_style}"/>
+                    <Label Content="{Binding Path=PortStatus, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource main_label_style}"/>
+                </StackPanel>
+            </StackPanel>
+        </Viewbox>
+    </Grid>
+</Window>

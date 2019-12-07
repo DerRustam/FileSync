@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DirectStar.FileSystem.FileSystemService" BaseTypeListCollapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AUKAAQGgsAAAAgAIASCAABAgEADAAAQAAoBiCACAAAA=</HashCode>
+      <FileName>FileSystem\FileSystemService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DirectStar.FileSystem.TransferTaskingService" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAEAIgAAAQAAhAAAABAAAAACAAABAAQ=</HashCode>
+      <FileName>FileSystem\TransferTaskingService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DirectStar.Model.MemberInfoContainer">
+    <Position X="2" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAQAAAAARAAAABAAAAAAAIAABAAAAAAAAAEA=</HashCode>
+      <FileName>Model\MemberInfoContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DirectStar.Model.NetworkDeviceContainer">
+    <Position X="2" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAABAAAgAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Model\NetworkDeviceContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DirectStar.Model.RecvFilesLog" BaseTypeListCollapsed="true">
+    <Position X="11" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAIAAQAAAAgAAAAAAAAAAAAAQAIAA=</HashCode>
+      <FileName>Model\RecvFilesLog.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DirectStar.Model.TransferTaskContainer" BaseTypeListCollapsed="true">
+    <Position X="2" Y="9.25" Width="1.5" />
+    <NestedTypes>
+      <Class Name="DirectStar.Model.TransferTaskContainer.TransmitInfoContainer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Model\TransferTaskContainer.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAQAAAggAAIAAAAAKAwAAAABABAAACgAAAIAA=</HashCode>
+      <FileName>Model\TransferTaskContainer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DirectStar.Network.NetInterface">
+    <Position X="7.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAQAAAAAACAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Network\ConnectionService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DirectStar.Network.ConnectionService">
+    <Position X="7.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAEAAIAAAEDDAAAAAAQRACChAAAgACgQAAAAAGAIAA=</HashCode>
+      <FileName>Network\ConnectionService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DirectStar.Network.InteractionService">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QBAEABAABEKIAAFwAAIAAICABUBgAAQAQJAGCEQgAAA=</HashCode>
+      <FileName>Network\InteractionService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DirectStar.Network.NetworkStatus">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Network\NetworkService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DirectStar.Network.NetworkService">
+    <Position X="5.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAgAAIABCAEAAAAEAAAABAAwgAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Network\NetworkService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DirectStar.ViewModel.ImageConverter" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAECAAABAAAAAACAIAAAAAAAggEAAAgAAAAAAAACAA=</HashCode>
+      <FileName>ViewModel\ImageConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DirectStar.ViewModel.MainVM">
+    <Position X="12.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAKIIAEQAgIAAEIMCgKCAgAgRAgAAAAAAACAAIQggAA=</HashCode>
+      <FileName>ViewModel\MainVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DirectStar.ViewModel.NetworkConverter" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAECAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\NetworkConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DirectStar.ViewModel.NetworkVM">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABEAAAIMgIAAAIAAAAAAAAABABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\NetworkVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DirectStar.ViewModel.User_B_Converter" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAECAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\User_B_Converter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="DirectStar.FileSystem.IDirectoryDialogService">
+    <Position X="4" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FileSystem\IDirectoryDialogService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="DirectStar.Model.Group">
+    <Position X="9.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQCAAAAAAAAAAAAAADAAAEAAAA=</HashCode>
+      <FileName>Model\MemberInfoContainer.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DirectStar.Model.TransferStatus">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAIAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Model\TransferTaskContainer.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DirectStar.Network.LANStatus">
+    <Position X="9.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Network\NetworkService.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DirectStar.ViewModel.FileFormat">
+    <Position X="9.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAAEABAAAAAAAAAAAAg=</HashCode>
+      <FileName>ViewModel\ImageConverter.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
